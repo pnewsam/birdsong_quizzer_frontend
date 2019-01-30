@@ -1,0 +1,114 @@
+import { LitElement, html, css } from "lit-element";
+import { setPassiveTouchGestures } from "@polymer/polymer/lib/utils/settings.js";
+import { connect } from "pwa-helpers/connect-mixin.js";
+import { installMediaQueryWatcher } from "pwa-helpers/media-query.js";
+import { installOfflineWatcher } from "pwa-helpers/network.js";
+import { installRouter } from "pwa-helpers/router.js";
+import { updateMetadata } from "pwa-helpers/metadata.js";
+
+// This element is connected to the Redux store.
+import { store } from "../store.js";
+
+// These are the actions needed by this element.
+import { navigate, updateOffline } from "../actions/app.js";
+
+// These are the elements needed by this element.
+import "@polymer/app-layout/app-scroll-effects/effects/waterfall.js";
+
+class MyApp extends connect(store)(LitElement) {
+  static get properties() {
+    return {
+      appTitle: { type: String },
+      _page: { type: String },
+      _offline: { type: Boolean }
+    };
+  }
+
+  static get styles() {
+    return [
+      css`
+        :host {
+          display: grid;
+          grid-template-columns: 1fr 1080px 1fr;
+          grid-template-rows: 80px 1fr 80px;
+          grid-template-areas:
+            "nav nav nav"
+            ". main .";
+        }
+
+        @media screen and (max-width: 1080px) {
+          :host {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas:
+              "nav nav nav"
+              "main main main";
+          }
+        }
+
+        /* Workaround for IE11 displaying <main> as inline */
+
+        nav {
+          background-color: #333399;
+          color: #fff;
+          grid-area: nav;
+        }
+
+        main {
+          grid-area: main;
+        }
+
+        .page {
+          display: none;
+        }
+
+        .page[active] {
+          display: block;
+        }
+      `
+    ];
+  }
+
+  render() {
+    return html`
+      <nav>
+        <a ?selected="${this._page === "view1"}" href="/view1">View One</a>
+      </nav>
+
+      <main role="main">
+        <my-view1 class="page" ?active="${this._page === "view1"}"></my-view1>
+      </main>
+    `;
+  }
+
+  constructor() {
+    super();
+    // To force all event listeners for gestures to be passive.
+    // See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
+    setPassiveTouchGestures(true);
+  }
+
+  firstUpdated() {
+    installRouter(location =>
+      store.dispatch(navigate(decodeURIComponent(location.pathname)))
+    );
+    installOfflineWatcher(offline => store.dispatch(updateOffline(offline)));
+  }
+
+  updated(changedProps) {
+    if (changedProps.has("_page")) {
+      const pageTitle = this.appTitle + " - " + this._page;
+      updateMetadata({
+        title: pageTitle,
+        description: pageTitle
+        // This object also takes an image property, that points to an img src.
+      });
+    }
+  }
+
+  stateChanged(state) {
+    this._page = state.app.page;
+    this._offline = state.app.offline;
+  }
+}
+
+window.customElements.define("my-app", MyApp);
