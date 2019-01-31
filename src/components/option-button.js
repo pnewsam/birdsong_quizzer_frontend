@@ -1,10 +1,10 @@
 import { LitElement, html, css } from "lit-element";
 
 class OptionButton extends LitElement {
-  constructor(props) {
+  constructor() {
     super();
-    this.text = "Brown-headed Cowbird";
-    console.log(props);
+    this.text = "";
+    this.isCorrect = undefined;
   }
 
   static get properties() {
@@ -30,7 +30,7 @@ class OptionButton extends LitElement {
 
   render() {
     return html`
-      <button>${this.text}</button>
+      <button isCorrect="${this.isCorrect}">${this.text}</button>
     `;
   }
 }
