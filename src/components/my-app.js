@@ -11,6 +11,7 @@ import { store } from "../store.js";
 
 // These are the actions needed by this element.
 import { navigate, updateOffline } from "../actions/app.js";
+import "./bsq-geolocator";
 
 // These are the elements needed by this element.
 import "@polymer/app-layout/app-scroll-effects/effects/waterfall.js";
@@ -77,6 +78,7 @@ class MyApp extends connect(store)(LitElement) {
       <main role="main">
         <home-page class="page" ?active="${this._page === "view1"}"></home-page>
       </main>
+      <bsq-geolocator></bsq-geolocator>
     `;
   }
 

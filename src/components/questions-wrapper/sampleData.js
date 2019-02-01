@@ -1,3 +1,6 @@
+const defaultLat = "42.37";
+const defaultLon = "-71.10";
+
 export const sampleData = [
   {
     answers: [
