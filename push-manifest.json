@@ -5,7 +5,12 @@
       "type": "script",
       "weight": 1
     },
-    "src/components/home-page.js": {
+    "src/components/home-page/index.js": {
+      "crossorigin": "anonymous",
+      "type": "script",
+      "weight": 1
+    },
+    "src/components/bsq-geolocator/index.js": {
       "crossorigin": "anonymous",
       "type": "script",
       "weight": 1
@@ -21,7 +26,12 @@
       "type": "script",
       "weight": 1
     },
-    "src/components/home-page.js": {
+    "src/components/bsq-geolocator/index.js": {
+      "crossorigin": "anonymous",
+      "type": "script",
+      "weight": 1
+    },
+    "src/components/home-page/index.js": {
       "crossorigin": "anonymous",
       "type": "script",
       "weight": 1
