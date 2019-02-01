@@ -28,33 +28,34 @@ class MyApp extends connect(store)(LitElement) {
     return [
       css`
         :host {
-          display: grid;
-          grid-template-columns: 1fr 1080px 1fr;
-          grid-template-rows: 80px 1fr 80px;
-          grid-template-areas:
-            "nav nav nav"
-            ". main .";
+          grid-template-columns: 1fr;
+          grid-template-rows: 60px 1fr;
+          grid-template-areas: "header" "main";
+          height: 100vh;
         }
 
-        @media screen and (max-width: 1080px) {
-          :host {
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-areas:
-              "nav nav nav"
-              "main main main";
-          }
-        }
-
-        /* Workaround for IE11 displaying <main> as inline */
-
-        nav {
+        header {
+          align-items: center;
           background-color: #333399;
           color: #fff;
+          display: flex;
+          grid-area: header;
+          justify-content: center;
+        }
+
+        h1 {
+          font-weight: normal;
+          margin: 0;
+        }
+
+        nav {
           grid-area: nav;
+          background-color: lightgrey;
         }
 
         main {
           grid-area: main;
+          padding: 8px;
         }
 
         .page {
@@ -70,12 +71,11 @@ class MyApp extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <nav>
-        <a ?selected="${this._page === "view1"}" href="/view1">View One</a>
-      </nav>
-
+      <header>
+        <h1>Birdsong Quizzer</h1>
+      </header>
       <main role="main">
-        <my-view1 class="page" ?active="${this._page === "view1"}"></my-view1>
+        <home-page class="page" ?active="${this._page === "view1"}"></home-page>
       </main>
     `;
   }

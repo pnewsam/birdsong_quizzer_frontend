@@ -1,17 +1,17 @@
 import { html, css } from "lit-element";
 import { PageViewElement } from "./page-view-element.js";
-import "./x-quizzer";
+import "./questions-wrapper";
 
-class MyView1 extends PageViewElement {
+class HomePage extends PageViewElement {
   static get styles() {
     return [css``];
   }
 
   render() {
     return html`
-      <section><x-quizzer></x-quizzer></section>
+      <questions-wrapper></questions-wrapper>
     `;
   }
 }
 
-window.customElements.define("my-view1", MyView1);
+window.customElements.define("home-page", HomePage);

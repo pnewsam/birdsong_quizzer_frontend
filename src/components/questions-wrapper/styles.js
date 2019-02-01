@@ -2,23 +2,25 @@ import { css } from "lit-element";
 
 export default css`
   .indicator {
-    display: grid;
-    grid-template-columns: 1fr 160px;
-    grid-template-rows: 1fr;
-    grid-template-areas: ". count";
+    margin-bottom: 8px;
   }
   .count {
-    grid-area: count;
-    text-align: right;
+    margin: 0;
+    text-align: center;
   }
   .options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 200px 200px;
-    grid-gap: 16px;
+    grid-gap: 8px;
     grid-template-areas:
       "a b"
       "c d";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    margin-bottom: 8px;
+  }
+  @media screen and (max-width: 480px) {
+    .options {
+    }
   }
   .options > *:nth-of-type(1) {
     grid-area: a;
@@ -51,5 +53,8 @@ export default css`
   }
   .score {
     grid-area: score;
+  }
+  audio {
+    width: 100%;
   }
 `;

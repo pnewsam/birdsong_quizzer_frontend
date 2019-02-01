@@ -1,7 +1,7 @@
 {
-  "name": "My App",
-  "short_name": "My App",
-  "description": "My App description",
+  "name": "Birdsong Quizzer",
+  "short_name": "Birdsong Quizzer",
+  "description": "An app to quiz yourself on bird songs.",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#3f51b5",
